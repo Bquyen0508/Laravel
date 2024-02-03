@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -47,21 +48,28 @@ use App\Models\User;
 // });
 // Route::redirect('post','show-form');
 // Route::view('show-form','form');
-Route::prefix('admin')->group(function(){
-    Route::get('post', function () {
-    return 'Phương thức get của path /post';
-    });
-    Route::get('show-form', function () {
-    return view('form');
-    });
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/posts', 'HomeController@getPosts')->name('post');
+Route::get('/chuyen-muc/{id}',[HomeController::class,"getCategories"]);
+Route::prefix('admin')->group(function () {
+    Route::get('post/{id?}/{slug?}.html', function ($id = null, $slug = null) {
+        $content = 'Phương thức get của path /post ';
+        $content .= 'id = ' . $id . '</br>';
+        $content .= 'slug = ' . $slug;
+        return $content;
+    })->where('id', '\d+')->where('slug', '.+')->name('admin.show-form');
 
-    Route::prefix('products')->group(function(){
-        Route::get('/',function(){
+    Route::get('show-form', function () {
+        return view('form');
+    })->name('admin.show-form');
+
+    Route::prefix('products')->middleware('checkPermission')->group(function () {
+        Route::get('/', function () {
             return 'Danh sách sản phẩm';
         });
-        Route::get('add',function(){
+        Route::get('add', function () {
             return 'Thêm sản phẩm';
-        });
+        })->name('admin.products.add');
         Route::get('edit', function () {
             return 'Sửa sản phẩm';
         });
