@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoriesController;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
-
+use App\Http\Controllers\Admin\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,12 +17,15 @@ use App\Http\Controllers\Admin\ProductsController;
 */
 
 //client route
+Route::get('/',function (){
+    return '<h1>This is unicode homepage</h1>';
+})->name('home');
 Route::prefix('categories')->group(function () {
     //danh sách chuyên mục
     Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
 
     //lấy chi tiết 1 chuyên mục (áp dụng show form)
-    Route::get('/edit/{id}',[CategoriesController::class, 'getCategory'])->name('categories.edit');
+    Route::get('/edit/{id}', [CategoriesController::class, 'getCategory'])->name('categories.edit');
 
     //Xử lí update chuyên mục
     Route::post('/edit/{id}', [CategoriesController::class, 'updateCategory']);
@@ -38,7 +40,7 @@ Route::prefix('categories')->group(function () {
     Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
 });
 //Admin route
-Route::prefix('admin')->group(function (){
-    Route::resource('products',ProductsController::class);
+Route::middleware('auth.admin')->prefix('admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::resource('products', ProductsController::class)->middleware('auth.admin.product');
 });
-
