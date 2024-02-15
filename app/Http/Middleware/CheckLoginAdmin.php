@@ -17,6 +17,17 @@ class CheckLoginAdmin
     public function handle(Request $request, Closure $next)
     {
         // echo 'Middleware request';
+        if (!$this->isLogIn()) {
+            return redirect(route('home'));
+        }
+
+        if ($request->is('admin/*') || $request->is('admin')){
+            echo '<h3>This is admin section</h3>';
+        }
         return $next($request);
+    }
+    public function isLogIn()
+    {
+        return true;
     }
 }
