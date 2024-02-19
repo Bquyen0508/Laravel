@@ -3,31 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+
 class HomeController extends Controller
 {
-    //
+    public $data = [];
     public function index(){
-        $title = "Study PHP with me!";
-        $content = "Learn programming in Laravel";
-        // [
-        //     'title' => $title,
-        //     'content' => $content
-        // ];
-        return view::make('home', compact('title','content'));//load view home.php
-        // $contentView = view('home')->render();
-        // $contentView = $contentView->render();
-        // dd($contentView);
-    }
-    public function getPosts(){
-        return 'Danh sách post';
-    }
+        $this->data['welcome'] = 'Học lập trình Laravel tại Unicode';
+        $this->data['content'] = '<h3>Chương 1: Nhập môn Laravel</h3>
+        <p>Kiến thức 1</p>
+        <p>Kiến thức 2</p>
+        <p>Kiến thức 3</p>';
 
-    public function getCategories($id){
-        return "chuyên mục: ".$id;
-    }
+        $this->data['index'] = 1;
 
-    public function getProductDetail($id){
-        return view('clients.categories.products.detail', compact('id'));
+        $this->data['dataArr'] = [
+            'Item 1',
+            'Item 2',
+            'Item 3'
+        ];
+
+        $this->data['number'] = 10;
+        
+        return view('home',$this->data);
     }
 }

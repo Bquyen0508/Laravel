@@ -18,7 +18,7 @@ use App\Http\Controllers\HomeController;
 */
 
 //client route
-Route::get('/',[HomeController::class, 'index'])->name('home')->middleware('auth.admin');
+Route::get('/',[HomeController::class, 'index']);
 
 Route::middleware('auth.admin')->prefix('categories')->group(function () {
     //danh sách chuyên mục
