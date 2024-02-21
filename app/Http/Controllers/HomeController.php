@@ -23,6 +23,8 @@ class HomeController extends Controller
         ];
 
         $this->data['number'] = 10;
+
+        $this->data['message'] = 'order successful';
         
         return view('home',$this->data);
     }

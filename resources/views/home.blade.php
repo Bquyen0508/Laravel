@@ -14,24 +14,44 @@
         {!! !empty($content)?$content:false !!}
     </div>
     <hr>
-    <!-- @for ($i=1; $i<=10; $i++) 
+    {{--  @for ($i=1; $i<=10; $i++) 
     <p>Phần tử thứ: {{$i}}</p>
-    @endfor -->
+    @endfor --}}
 
-    <!-- @while ($index<=10)
+    {{--  @while ($index<=10)
     <p>Phần tử thứ: {{$index}}</p>
     <?php $index++ ?>
-    @endwhile -->
+    @endwhile --}}
 
-    <!-- @foreach ($dataArr as $key => $item)
+    {{-- @foreach ($dataArr as $key => $item)
         <p>Phần tử: {{$item}} - {{$key}}</p>
-    @endforeach -->
+    @endforeach --}}
 
-    @forelse ($dataArr as $item)
+    {{-- @forelse ($dataArr as $item)
         <p>Phần tử: {{$item}}</p>
     @empty
         <p>Không có phần tử nào</p>
-    @endforelse
-</body>
+    @endforelse --}}
 
+    @php
+    $number = 5;
+    if($number >= 10){
+        $total = $number + 20;
+    }else{
+        $total = $number + 10;
+    }
+    @endphp
+    <h3>Kết quả: {{$number}} - {{$total}}</h3>
+
+    @verbatim
+        <div class="container">
+            Hello, {{className}}
+        </div>
+        <script>
+            Hello, {{name}}
+            Hi, {{age}}
+        </script>
+    @endverbatim
+    @include('parts.notice')
+</body>
 </html>
