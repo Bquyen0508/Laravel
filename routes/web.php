@@ -19,6 +19,7 @@ use App\Http\Controllers\HomeController;
 
 //client route
 Route::get('/',[HomeController::class, 'index']);
+Route::get('/san-pham', [HomeController::class, 'products']);
 
 Route::middleware('auth.admin')->prefix('categories')->group(function () {
     //danh sách chuyên mục

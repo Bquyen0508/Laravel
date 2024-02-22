@@ -8,6 +8,8 @@ class HomeController extends Controller
 {
     public $data = [];
     public function index(){
+        $this->data['title'] = 'good mood';
+
         $this->data['welcome'] = 'Học lập trình Laravel tại Unicode';
         $this->data['content'] = '<h3>Chương 1: Nhập môn Laravel</h3>
         <p>Kiến thức 1</p>
@@ -26,6 +28,11 @@ class HomeController extends Controller
 
         $this->data['message'] = 'order successful';
         
-        return view('home',$this->data);
+        return view('clients.home',$this->data);
+    }
+
+    public function products(){
+        $this->data['title'] = 'Sản phẩm';
+        return view('clients.products', $this->data);
     }
 }
