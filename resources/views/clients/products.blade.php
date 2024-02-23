@@ -24,12 +24,7 @@
     @endsection
 
     @section('css')
-        <style type="text/css">
-            header{
-            background: pink;
-            color: #fff;
-        }
-        </style>
+        
     @endsection
 
     @section('js')

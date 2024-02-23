@@ -23,25 +23,19 @@
     @endsection
 
     @section('content')
-        <h1>TRANG CHỦ</h1>
-        <button type="button" class="show">Show</button>
+        <section>
+            <h1>Trang chủ</h1>
+            @include('clients.contents.slide')
+            @include('clients.contents.about')
+        </section>
     @endsection
 
     @section('css')
-        <style type="text/css">
-            header{
-            background:blue;
-            color: #fff;
-        }
-        </style>
+        
     @endsection
 
     @section('js')
-        <script type="text/javascript">
-            document.querySelector('.show').onclick = function(){
-                alert('Thành công');
-            }
-        </script>
+        
     @endsection
     {{-- <h1>Home page</h1>
     <h2>{{!empty(request()->keyword)?request()->keyword:"Không có gì"}}</h2>
