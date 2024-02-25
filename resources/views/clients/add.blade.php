@@ -14,31 +14,21 @@
     @endsection --}}
 
     @section('title')
-        trang chu
-    @endsection
-    
-    @section('sidebar')
-        @parent
-        <h3>Home sidebar</h3>
+        {{$title}}
     @endsection
 
     @section('content')
         <section>
-            <h1>Trang chủ</h1>
-            @datetime('2024-25-02 15:01:00')
-            @include('clients.contents.slide')
-            @include('clients.contents.about')
-            @datetime('2024-11-02 00:01:00')
+            <h1>Thêm sản phẩm</h1>
+           <form action="" method="post">
+                <input type="text" name="username">
+                {{-- <input type="hidden" name="_token" value="{{csrf_token()}}"> --}}
+                <button type="submit">Submit</button>
+                @csrf
+                @method('PUT')
+           </form>
         </section>
     @endsection
 
-    @section('css')
-        
-    @endsection
-
-    @section('js')
-        
-    @endsection
-  
 </body>
 </html>

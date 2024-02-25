@@ -13,7 +13,7 @@
     @section('title')
         trang chu
     @endsection
-    
+
     @section('sidebar')
         @parent
         <h3>Product sidebar</h3>
@@ -23,11 +23,23 @@
         <h1>Sản phẩm</h1>
     @endsection
 
+      @push('scripts')
+        <script>
+            console.log('push lần 2');
+        </script>
+    @endpush
+
     @section('css')
-        
     @endsection
 
     @section('js')
     @endsection
-</body>
-</html>
+
+    @prepend('scripts')
+        <script>
+            console.log('push lần 1');
+        </script>
+    @endprepend
+    </body>
+
+    </html>
