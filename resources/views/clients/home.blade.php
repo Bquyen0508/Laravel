@@ -16,7 +16,7 @@
     @section('title')
         trang chu
     @endsection
-    
+
     @section('sidebar')
         @parent
         <h3>Home sidebar</h3>
@@ -28,17 +28,23 @@
             @datetime('2024-25-02 15:01:00')
             @include('clients.contents.slide')
             @include('clients.contents.about')
-            @datetime('2024-11-02 00:01:00')
+
+            @env('production')
+                <p>Môi trường production</p>
+            @elseenv('test')
+                <p>Môi trường test</p>
+            @else
+                <p>Môi trường dev</p>
+            @endenv
         </section>
     @endsection
 
     @section('css')
-        
     @endsection
 
     @section('js')
-        
     @endsection
-  
+
 </body>
+
 </html>
