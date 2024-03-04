@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Http\Response;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,40 +19,36 @@ use App\Http\Controllers\HomeController;
 */
 
 //client route
-Route::get('/',[HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/san-pham', [HomeController::class, 'products'])->name('product');
 Route::get('/them-san-pham', [HomeController::class, 'getAdd']);
 Route::post('/them-san-pham', [HomeController::class, 'postAdd']);
 Route::put('/them-san-pham', [HomeController::class, 'putAdd']);
 
-Route::middleware('auth.admin')->prefix('categories')->group(function () {
-    //danh sách chuyên mục
-    Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
+Route::get('demo-response', function () {
+    // $response = new Response('',200);
+    $content = json_encode([
+        'Item 1',
+        'Item 2',
+        'Item 3'
+    ]);
+    $response = (new Response($content))->header('Content-Type', 'application/json');
+    // return $response;
 
-    //lấy chi tiết 1 chuyên mục (áp dụng show form)
-    Route::get('/edit/{id}', [CategoriesController::class, 'getCategory'])->name('categories.edit');
-
-    //Xử lí update chuyên mục
-    Route::post('/edit/{id}', [CategoriesController::class, 'updateCategory']);
-
-    //Hiển thị form add dữ liệu
-    Route::get('/add', [CategoriesController::class, 'addCategory'])->name('categories.add');
-
-    //Xử lý thêm chuyên mục
-    Route::post('/add', [CategoriesController::class, 'handleAddCategory']);
-
-    //Xóa chuyên mục
-    Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
-
-    //Hiển thị form upload
-    Route::get('/upload', [CategoriesController::class, 'getFile']);
-
-    //Xử lý upload file
-    Route::post('/upload',[CategoriesController::class, 'handleFile'])->name('categories.upload'); 
+    $newResponse = (new Response())->cookie('unicode', 'training PHP', 30);
+    return $newResponse;
 });
-Route::get('san-pham/{id}', [HomeController::class, 'getProductDetail']);
-//Admin route
-Route::middleware('auth.admin')->prefix('admin')->group(function () {
-    Route::get('/', [DashboardController::class, 'index']);
-    Route::resource('products', ProductsController::class)->middleware('auth.admin.product');
+
+Route::get('/lay-thong-tin', [HomeController::class, 'getArr']);
+
+Route::get('/demo-response2', function (Request $request) {
+    //return $request->cookie('unicode');
+});
+
+Route::get('/demo-res', function () {
+    //return view('clients.demo-test');
+    $response = response()->view('clients.demo-test', [
+        'title' => 'Học http response'
+    ], 201)->header('Content-Type', 'application/json');
+    return $response;
 });

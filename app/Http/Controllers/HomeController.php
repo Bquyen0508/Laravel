@@ -50,4 +50,13 @@ class HomeController extends Controller
         return 'Phương thức PUT';
         dd($request);
     }
+
+    public function getArr(){
+        $contentArr = [
+            'name' => 'Laravel 8x',
+            'lesson' => 'Unicode',
+            'class' => 'PNV25A'
+        ];
+        return $contentArr;
+    }
 }
