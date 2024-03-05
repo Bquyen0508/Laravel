@@ -27,16 +27,23 @@ Route::put('/them-san-pham', [HomeController::class, 'putAdd']);
 
 Route::get('demo-response', function () {
     // $response = new Response('',200);
-    $content = json_encode([
+    $content = [
         'Item 1',
         'Item 2',
         'Item 3'
-    ]);
-    $response = (new Response($content))->header('Content-Type', 'application/json');
-    // return $response;
+    ];
+    //$response = (new Response($content))->header('Content-Type', 'application/json');
+    //return response()->json($content, 201)->header("Api-Key",'1234');
 
-    $newResponse = (new Response())->cookie('unicode', 'training PHP', 30);
-    return $newResponse;
+    //$newResponse = (new Response())->cookie('unicode', 'training PHP', 30);
+    return view('clients.demo-test');
+})->name('demo-response');
+
+Route::post('demo-response', function (Request $request) {
+    if(!empty($request->username)){
+        return back()->withInput()->with('mess', 'Validate thành công');
+    }
+    return redirect(route('demo-response'))->with('mess','Validate không thành công');
 });
 
 Route::get('/lay-thong-tin', [HomeController::class, 'getArr']);
