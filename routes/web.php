@@ -40,10 +40,10 @@ Route::get('demo-response', function () {
 })->name('demo-response');
 
 Route::post('demo-response', function (Request $request) {
-    if(!empty($request->username)){
+    if (!empty($request->username)) {
         return back()->withInput()->with('mess', 'Validate thành công');
     }
-    return redirect(route('demo-response'))->with('mess','Validate không thành công');
+    return redirect(route('demo-response'))->with('mess', 'Validate không thành công');
 });
 
 Route::get('/lay-thong-tin', [HomeController::class, 'getArr']);
@@ -59,3 +59,7 @@ Route::get('/demo-res', function () {
     ], 201)->header('Content-Type', 'application/json');
     return $response;
 });
+
+Route::get('download-image', [HomeController::class, 'downloadImage'])->name('download-image');
+
+Route::get('download-doc', [HomeController::class, 'downloadDoc'])->name('download-doc');

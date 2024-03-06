@@ -30,23 +30,36 @@
             @include('clients.contents.about')
 
             @env('production')
-                <p>Môi trường production</p>
+            <p>Môi trường production</p>
             @elseenv('test')
-                <p>Môi trường test</p>
-            @else
-                <p>Môi trường dev</p>
+            <p>Môi trường test</p>
+        @else
+            <p>Môi trường dev</p>
             @endenv
 
-            <x-alert type="info" :content="$message" data-icon='youtube'/>
-{{-- 
+            <x-alert type="info" :content="$message" data-icon='youtube' />
+            {{-- 
             <x-inputs.button/>
 
             <x-forms.button/> --}}
-            
+
+            <p><img src="https://www.niijiiradio.com/wp-content/uploads/2016/10/News-Image-3.jpg" alt=""></p>
+
+            <p><a href="{{ route('download-image') . '?image=' . public_path('storage\5.jpg') }}" class="btn btn-primary">Download ảnh</a>
+            </p>
+
+            <p><a href="{{ route('download-doc') . '?file=' . public_path('storage\PB1-SapotaCorp.pdf') }}" class="btn btn-primary">Download file pdf</a>
+            </p>
         </section>
     @endsection
 
     @section('css')
+        <style>
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
     @endsection
 
     @section('js')
