@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Requests\ProductRequest;
 class HomeController extends Controller
 {
     public $data = [];
@@ -46,20 +46,20 @@ class HomeController extends Controller
         return view('clients.add', $this->data);
     }
 
-    public function postAdd(Request $request)
+    public function postAdd(ProductRequest $request)
     {
-        $rules = [
-            'product_name' => 'required|min:6',
-            'product_price' => 'required|integer'
-        ];
+        // $rules = [
+        //     'product_name' => 'required|min:6',
+        //     'product_price' => 'required|integer'
+        // ];
 
-        $messages = [
-            'required' => 'Trường :attribute bắt buộc phải nhập',
-            'min' => 'Trường :attribute không được nhỏ hơn :min ký tự',
-            'integer' => 'Trường :attribute phải là số'
-        ];
+        // $messages = [
+        //     'required' => 'Trường :attribute bắt buộc phải nhập',
+        //     'min' => 'Trường :attribute không được nhỏ hơn :min ký tự',
+        //     'integer' => 'Trường :attribute phải là số'
+        // ];
 
-        $request->validate($rules, $messages);
+        // $request->validate($rules, $messages);
        
         //Xử lý thêm dữ liệu vào database
 
