@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public $data = [];
-    public function index(){
+    public function index()
+    {
+
         $this->data['title'] = 'good mood';
 
         $this->data['welcome'] = 'Học lập trình Laravel tại Unicode';
@@ -27,22 +29,40 @@ class HomeController extends Controller
         $this->data['number'] = 10;
 
         $this->data['message'] = 'order successful';
-        
-        return view('clients.home',$this->data);
+
+        return view('clients.home', $this->data);
     }
 
-    public function products(){
+    public function products()
+    {
         $this->data['title'] = 'Sản phẩm';
         return view('clients.products', $this->data);
     }
 
-    public function getAdd(){
+    public function getAdd()
+    {
         $this->data['title'] = 'Thêm sản phẩm';
-        return view('clients.add',$this->data);
+        $this->data['errorMessage'] = 'Vui lòng kiểm tra lại dữ liệu';
+        return view('clients.add', $this->data);
     }
 
-    public function postAdd(Request $request){
-        dd($request);
+    public function postAdd(Request $request)
+    {
+        $rules = [
+            'product_name' => 'required|min:6',
+            'product_price' => 'required|integer'
+        ];
+
+        $messages = [
+            'required' => 'Trường :attribute bắt buộc phải nhập',
+            'min' => 'Trường :attribute không được nhỏ hơn :min ký tự',
+            'integer' => 'Trường :attribute phải là số'
+        ];
+
+        $request->validate($rules, $messages);
+       
+        //Xử lý thêm dữ liệu vào database
+
     }
 
     public function putAdd(Request $request)
@@ -51,7 +71,8 @@ class HomeController extends Controller
         dd($request);
     }
 
-    public function getArr(){
+    public function getArr()
+    {
         $contentArr = [
             'name' => 'Laravel 8x',
             'lesson' => 'Unicode',
@@ -60,13 +81,14 @@ class HomeController extends Controller
         return $contentArr;
     }
 
-    public function downloadImage(Request $request){
-        if(!empty($request->image)){
+    public function downloadImage(Request $request)
+    {
+        if (!empty($request->image)) {
             $image = trim($request->image);
 
-            $fileName = 'image_'.uniqid().'.jpg';
+            $fileName = 'image_' . uniqid() . '.jpg';
 
-           // $fileName = basename($image);
+            // $fileName = basename($image);
 
             // return response()->streamDownload(function() use ($image){
             //     $imageContent = file_get_contents($image);
@@ -87,7 +109,7 @@ class HomeController extends Controller
             $header = [
                 'Content-Type => application/pdf'
             ];
-            return response()->download($file, $fileName,$header);
+            return response()->download($file, $fileName, $header);
         }
     }
 }
