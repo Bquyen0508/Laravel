@@ -21,11 +21,11 @@
         <section>
             <h1>Thêm sản phẩm</h1>
             <form action="" method="post">
-                @if ($errors->any())
+                @error('mgs')
                     <div class="alert alert-danger text-center">
-                        {{ $errorMessage }}
+                        {{$message}}
                     </div>
-                @endif
+                @enderror
                 <div class="mb-3">
                     <label for="">Tên sản phẩm</label>
                     <input type="text" class="form-control" name="product_name" placeholder="Tên sản phẩm..."

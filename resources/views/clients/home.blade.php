@@ -23,6 +23,12 @@
     @endsection
 
     @section('content')
+        @if (session('mgs'))
+            <div class="alert alert-{{ session('type') }}">
+                {{ session('mgs') }}
+            </div>
+        @endif
+
         <section>
             <h1>Trang chủ</h1>
             @datetime('2024-25-02 15:01:00')
@@ -45,10 +51,12 @@
 
             <p><img src="https://www.niijiiradio.com/wp-content/uploads/2016/10/News-Image-3.jpg" alt=""></p>
 
-            <p><a href="{{ route('download-image') . '?image=' . public_path('storage\5.jpg') }}" class="btn btn-primary">Download ảnh</a>
+            <p><a href="{{ route('download-image') . '?image=' . public_path('storage\5.jpg') }}"
+                    class="btn btn-primary">Download ảnh</a>
             </p>
 
-            <p><a href="{{ route('download-doc') . '?file=' . public_path('storage\PB1-SapotaCorp.pdf') }}" class="btn btn-primary">Download file pdf</a>
+            <p><a href="{{ route('download-doc') . '?file=' . public_path('storage\PB1-SapotaCorp.pdf') }}"
+                    class="btn btn-primary">Download file pdf</a>
             </p>
         </section>
     @endsection
