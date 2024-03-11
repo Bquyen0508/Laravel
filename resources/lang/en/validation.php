@@ -129,6 +129,7 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'uppercase' => 'The :attribute phải viết hoa',
 
     /*
     |--------------------------------------------------------------------------
@@ -144,6 +145,9 @@ return [
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
+        ],
+        'product_name' => [
+            'uppercase' => 'Tên sản phẩm phải viết hoa',
         ],
     ],
 

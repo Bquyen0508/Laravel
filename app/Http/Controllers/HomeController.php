@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use App\Rules\Uppercase;
 use Illuminate\Support\Facades\Validator;
 class HomeController extends Controller
 {
@@ -50,7 +51,7 @@ class HomeController extends Controller
     public function postAdd(Request $request)
     {
         $rules = [
-            'product_name' => 'required|min:6',
+            'product_name' => ['required','min:6',new Uppercase],
             'product_price' => 'required|integer'
         ];
 
