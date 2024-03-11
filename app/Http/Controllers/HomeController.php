@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Validator;
 class HomeController extends Controller
 {
     public $data = [];
@@ -46,19 +47,41 @@ class HomeController extends Controller
         return view('clients.add', $this->data);
     }
 
-    public function postAdd(ProductRequest $request)
+    public function postAdd(Request $request)
     {
-        dd($request->all());
-        // $rules = [
-        //     'product_name' => 'required|min:6',
-        //     'product_price' => 'required|integer'
-        // ];
+        $rules = [
+            'product_name' => 'required|min:6',
+            'product_price' => 'required|integer'
+        ];
 
         // $messages = [
-        //     'required' => 'Trường :attribute bắt buộc phải nhập',
-        //     'min' => 'Trường :attribute không được nhỏ hơn :min ký tự',
-        //     'integer' => 'Trường :attribute phải là số'
+        //     'product_name.required' => 'Tên sản phẩm bắt buộc phải nhập',
+        //     'product_name.min' => 'Tên sản phẩm không được nhỏ hơn :min ký tự',
+        //     'product_price.required' => 'Gía sản phẩm bắt buộc phải nhập',
+        //     'product_price.integer' => 'Gía sản phẩm phải là số'
         // ];
+        $messages = [
+            'required' => ':attribute bắt buộc phải nhập',
+            'min' => ':attribute không được nhỏ hơn :min ký tự',
+            'integer' => ':attribute phải là số'
+        ];
+
+        $attributes = [
+            'product_name' => 'Tên sản phẩm',
+            'product_price' => 'Gía sản phẩm',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+
+        //$validator->validate();
+
+        if($validator->fails()){
+            $validator->errors()->add('mgs','Vui lòng kiểm tra lại dữ liệu');
+        }else{
+            return redirect()->route('product')->with('mgs','Validate thành công');
+        }
+
+        return back()->withErrors($validator);
 
         // $request->validate($rules, $messages);
        

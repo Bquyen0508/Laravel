@@ -20,10 +20,15 @@
     @endsection
 
     @section('content')
+        @if (session('mgs'))
+            <div class="alert alert-success">
+                {{ session ('mgs')}}
+            </div>
+        @endif
         <h1>Sản phẩm</h1>
     @endsection
 
-      @push('scripts')
+    @push('scripts')
         <script>
             console.log('push lần 2');
         </script>
@@ -40,6 +45,6 @@
             console.log('push lần 1');
         </script>
     @endprepend
-    </body>
+</body>
 
-    </html>
+</html>
