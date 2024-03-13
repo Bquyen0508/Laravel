@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Rules\Uppercase;
 use Illuminate\Support\Facades\Validator;
+
 class HomeController extends Controller
 {
     public $data = [];
@@ -51,7 +52,9 @@ class HomeController extends Controller
     public function postAdd(Request $request)
     {
         $rules = [
-            'product_name' => ['required','min:6',new Uppercase],
+            'product_name' => ['required', 'min:6', function ($attribute, $value, $fail) {
+                $this->isUpperCase($value,'Trường :attribute không hợp lệ', $fail);
+            }],
             'product_price' => 'required|integer'
         ];
 
@@ -76,16 +79,16 @@ class HomeController extends Controller
 
         //$validator->validate();
 
-        if($validator->fails()){
-            $validator->errors()->add('mgs','Vui lòng kiểm tra lại dữ liệu');
-        }else{
-            return redirect()->route('product')->with('mgs','Validate thành công');
+        if ($validator->fails()) {
+            $validator->errors()->add('mgs', 'Vui lòng kiểm tra lại dữ liệu');
+        } else {
+            return redirect()->route('product')->with('mgs', 'Validate thành công');
         }
 
         return back()->withErrors($validator);
 
         // $request->validate($rules, $messages);
-       
+
         //Xử lý thêm dữ liệu vào database
 
     }
@@ -135,6 +138,12 @@ class HomeController extends Controller
                 'Content-Type => application/pdf'
             ];
             return response()->download($file, $fileName, $header);
+        }
+    }
+
+    public function isUpperCase($value, $message, $fail){
+        if ($value != mb_strtoupper($value, 'UTF-8')) {
+            $fail($message);
         }
     }
 }
