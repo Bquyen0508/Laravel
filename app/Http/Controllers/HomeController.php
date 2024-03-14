@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Rules\Uppercase;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -13,24 +14,9 @@ class HomeController extends Controller
     public function index()
     {
 
-        $this->data['title'] = 'good mood';
-
-        $this->data['welcome'] = 'Học lập trình Laravel tại Unicode';
-        $this->data['content'] = '<h3>Chương 1: Nhập môn Laravel</h3>
-        <p>Kiến thức 1</p>
-        <p>Kiến thức 2</p>
-        <p>Kiến thức 3</p>';
-
-        $this->data['index'] = 1;
-
-        $this->data['dataArr'] = [
-            'Item 1',
-            'Item 2',
-            'Item 3'
-        ];
-
-        $this->data['number'] = 10;
-
+        // $users = DB::select('SELECT * FROM users WHERE id > ?',[1]);
+        // dd($users);
+        
         $this->data['message'] = 'order successful';
 
         return view('clients.home', $this->data);
@@ -73,7 +59,7 @@ class HomeController extends Controller
 
 
 
-        return response()->json(['status'=>'success']);
+        return response()->json(['status' => 'success']);
 
         // if ($validator->fails()) {
         //     $validator->errors()->add('mgs', 'Vui lòng kiểm tra lại dữ liệu');
@@ -137,7 +123,8 @@ class HomeController extends Controller
         }
     }
 
-    public function isUpperCase($value, $message, $fail){
+    public function isUpperCase($value, $message, $fail)
+    {
         if ($value != mb_strtoupper($value, 'UTF-8')) {
             $fail($message);
         }

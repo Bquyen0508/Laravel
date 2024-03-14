@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Http\Response;
 
 
@@ -63,3 +64,8 @@ Route::get('/demo-res', function () {
 Route::get('download-image', [HomeController::class, 'downloadImage'])->name('download-image');
 
 Route::get('download-doc', [HomeController::class, 'downloadDoc'])->name('download-doc');
+
+//Người dùng
+Route::prefix('users')->group(function(){
+    Route::get('/',[UsersController::class,'index']);
+});
