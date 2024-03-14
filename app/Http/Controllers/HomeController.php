@@ -49,21 +49,13 @@ class HomeController extends Controller
         return view('clients.add', $this->data);
     }
 
-    public function postAdd(Request $request)
+    public function postAdd(ProductRequest $request)
     {
         $rules = [
-            'product_name' => ['required', 'min:6', function ($attribute, $value, $fail) {
-                $this->isUpperCase($value,'Trường :attribute không hợp lệ', $fail);
-            }],
+            'product_name' => ['required', 'min:6'],
             'product_price' => 'required|integer'
         ];
 
-        // $messages = [
-        //     'product_name.required' => 'Tên sản phẩm bắt buộc phải nhập',
-        //     'product_name.min' => 'Tên sản phẩm không được nhỏ hơn :min ký tự',
-        //     'product_price.required' => 'Gía sản phẩm bắt buộc phải nhập',
-        //     'product_price.integer' => 'Gía sản phẩm phải là số'
-        // ];
         $messages = [
             'required' => ':attribute bắt buộc phải nhập',
             'min' => ':attribute không được nhỏ hơn :min ký tự',
@@ -75,17 +67,21 @@ class HomeController extends Controller
             'product_price' => 'Gía sản phẩm',
         ];
 
-        $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+        // c1
+        // $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+        // $validator->validate();
 
-        //$validator->validate();
 
-        if ($validator->fails()) {
-            $validator->errors()->add('mgs', 'Vui lòng kiểm tra lại dữ liệu');
-        } else {
-            return redirect()->route('product')->with('mgs', 'Validate thành công');
-        }
 
-        return back()->withErrors($validator);
+        return response()->json(['status'=>'success']);
+
+        // if ($validator->fails()) {
+        //     $validator->errors()->add('mgs', 'Vui lòng kiểm tra lại dữ liệu');
+        // } else {
+        //     return redirect()->route('product')->with('mgs', 'Validate thành công');
+        // }
+
+        // return back()->withErrors($validator);
 
         // $request->validate($rules, $messages);
 
