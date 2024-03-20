@@ -21,6 +21,7 @@
             </div>
         @endif
         <h1> {{ $title }} </h1>
+        <a href="{{route('users.add')}}" class='btn btn-primary mb-2'>Thêm người dùng</a>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -31,8 +32,8 @@
                 </tr>
             </thead>
             <tbody>
-                @if (!empty($users))
-                    @foreach ($users as $key => $item)
+                @if (!empty($usersList))
+                    @foreach ($usersList as $key => $item)
                         <tr>
                             <td>{{$item->id}}</td>
                             <td>{{$item->fullname}}</td>
